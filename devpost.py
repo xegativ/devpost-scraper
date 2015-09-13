@@ -49,9 +49,12 @@ def getImages(subObj):
 
 def getBuiltWith(subObj):
     builtWithList = []
-    builtWith = subObj.find('div', {'id':'built-with'}).findAll('span', {'class':'cp-tag'})
-    for tool in builtWith:
-        builtWithList.append(tool.get_text().strip())
+    try:
+        builtWith = subObj.find('div', {'id':'built-with'}).findAll('span', {'class':'cp-tag'})
+        for tool in builtWith:
+            builtWithList.append(tool.get_text().strip())
+    except:
+        print('No Tools Found')
     return builtWithList
 
 
