@@ -3,22 +3,28 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 baseUrl = 'http://hackumass-ii.devpost.com'
-subsUrl = baseUrl + '//submissions'
+subsUrl = baseUrl + '//submissions?page='
 
 
 def main():
-    subsObj = BeautifulSoup(urlopen(subsUrl), 'html.parser')
-    submissions = subsObj.findAll('a', {'class':'block-wrapper-link fade link-to-software'})
+    count = 1
     fieldsList = []
-    for submission in submissions:
-        subUrl = submission.attrs['href']
-        subObj = BeautifulSoup(urlopen(subUrl), 'html.parser')
+    while True:
+        subsObj = BeautifulSoup(urlopen(subsUrl + str(count)), 'html.parser')
+        submissions = subsObj.findAll('a', {'class':'block-wrapper-link fade link-to-software'})
+        if len(submissions) != 0:
+            for submission in submissions:
+                subUrl = submission.attrs['href']
+                subObj = BeautifulSoup(urlopen(subUrl), 'html.parser')
 
-        title = getTitle(subObj)
-        subtitle = getSubtitle(subObj, title)
-        images = getImages(subObj)
-        builtWith = getBuiltWith(subObj)
-        fieldsList.append([title.get_text().strip(), subtitle.get_text().strip(), images, builtWith])
+                title = getTitle(subObj)
+                subtitle = getSubtitle(subObj, title)
+                images = getImages(subObj)
+                builtWith = getBuiltWith(subObj)
+                fieldsList.append([title.get_text().strip(), subtitle.get_text().strip(), images, builtWith])
+            count = count + 1
+        else:
+            break
     writeToCSV(fieldsList)
 
 
