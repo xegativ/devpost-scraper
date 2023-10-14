@@ -1,4 +1,4 @@
-# Devpost-Scraper-Filter
+# Devpost-Scraper
 Python scraper that collects winning submission data from a Devpost hackathon page and writes the data to a CSV file only if it matches inputted prompt. 
 
 How it works:
