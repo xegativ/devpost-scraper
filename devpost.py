@@ -37,6 +37,8 @@ def getSubtitle(subObj, title):
     subtitle = title.parent.find('p')
     return subtitle
 
+def getDescription():
+    pass
 
 def getImages(subObj):
     imgList = []
