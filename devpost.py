@@ -2,19 +2,15 @@ import csv
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-# for API key
-from dotenv import dotenv_values
-
-import openai 
-openai.my_api_key = dotenv_values('.env')["API_KEY"]
+# BEAUTIFULSOUP 
 
 baseUrl = 'http://hackthenorth2023.devpost.com'
 # subsUrl = baseUrl + '//submissions?page='
 
 subsUrl = baseUrl + "//project-gallery?page="
 
-n_subm = 4
-n_page = 1
+n_subm = int(input("# of submissions per page?\t"))
+n_page = int(input("# of pages?\t"))
 
 def main():
     count = 1
