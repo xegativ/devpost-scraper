@@ -2,49 +2,65 @@ import csv
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
+import summarize
+
 # BEAUTIFULSOUP 
 
-baseUrl = 'http://hackthenorth2023.devpost.com'
-# subsUrl = baseUrl + '//submissions?page='
+filename = input("Save to which file (or create new): ")
 
-subsUrl = baseUrl + "//project-gallery?page="
+# Hack the North
+HTN = ['http://hackthenorth2018.devpost.com', 'http://hackthenorth2019.devpost.com', 'http://hackthenorth2020.devpost.com', 'http://hackthenorth2021.devpost.com', 'http://hackthenorth2022.devpost.com', 'http://hackthenorth2023.devpost.com']
+
+# NWHacks
+NWH = ['http://nwhacks2018.devpost.com', 'http://nwhacks2019.devpost.com', 'http://nwhacks2020.devpost.com', 'http://nwhacks2021.devpost.com', 'http://nwhacks-2022.devpost.com', 'http://nwhacks-2023.devpost.com']
+
+# HackCamp
+HKC = ['http://hackcamp2020.devpost.com', 'http://hackcamp2021.devpost.com', 'http://hackcamp-2022.devpost.com']
+
+URLlst = [] + HTN + NWH + HKC
+
+# subsUrl = baseUrl + "//project-gallery?page="
 
 n_subm = int(input("# of submissions per page?\t"))
 n_page = int(input("# of pages?\t"))
 
 def main():
-    count = 1
-    fieldsList = []
-    while count <= n_page:
-        subsObj = BeautifulSoup(urlopen(subsUrl + str(count)), 'html.parser')
-        submissions = subsObj.findAll('a', {'class':'block-wrapper-link fade link-to-software'})
-        if len(submissions) != 0:
-            for i, submission in enumerate(submissions):
+    for j, baseUrl in enumerate(URLlst):
+        subsUrl = baseUrl + "//project-gallery?page="
+        count = 1
+        fieldsList = []
+        while count <= n_page:
+            subsObj = BeautifulSoup(urlopen(subsUrl + str(count)), 'html.parser')
+            submissions = subsObj.findAll('a', {'class':'block-wrapper-link fade link-to-software'})
+            if len(submissions) != 0:
+                for i, submission in enumerate(submissions):
 
-                if i >= n_subm:
-                     break
+                    if i >= n_subm:
+                        break
 
-                print("> Checking submission")
+                    print("> Checking submission")
 
-                subUrl = submission.attrs['href']
-                subObj = BeautifulSoup(urlopen(subUrl), 'html.parser')
+                    subUrl = submission.attrs['href']
+                    subObj = BeautifulSoup(urlopen(subUrl), 'html.parser')
 
-                if isWinner(subObj):
-                    title = getTitle(subObj)
-                    subtitle = getSubtitle(subObj, title)
-                    description = getDescription(subObj)
-                    images = getImages(subObj)
-                    builtWith = getBuiltWith(subObj)
-                    fieldsList.append([title.get_text().strip(), subtitle.get_text().strip(), description, images, builtWith])
-                    
-            count = count + 1
-        else:
-            break
-    writeToCSV(fieldsList)
+                    if isWinner(subObj):
+                        title = getTitle(subObj)
+                        subtitle = getSubtitle(subObj, title)
+                        description = getDescription(subObj)
+                        images = getImages(subObj)
+                        builtWith = getBuiltWith(subObj)
+                        fieldsList.append([title.get_text().strip(), subtitle.get_text().strip(), description, images, builtWith])
+                        
+                count = count + 1
+            else:
+                break
+            print(len(fieldsList))
+            writeToCSV(fieldsList, j)
 
 
 def getTitle(subObj):
     title = subObj.find('h1', {'id':'app-title'})
+    print(f"> {title.get_text().strip()}")
     return title
 
 
@@ -72,7 +88,8 @@ def getDescription(subObj):
 
     desc = (''.join(desc)).replace('\n', '')
 
-    return desc
+
+    return summarize.Summarize(10, desc).summarize(3)
 
 def getImages(subObj):
     imgList = []
@@ -100,11 +117,12 @@ def getBuiltWith(subObj):
     return builtWithList
 
 
-def writeToCSV(fieldsList):
-    csvFile = open('data/data.csv', 'wt', encoding="utf-8")
+def writeToCSV(fieldsList, index):
+    csvFile = open(f'data/{filename}.csv', 'at', encoding="utf-8")
     try:
         writer = csv.writer(csvFile)
-        writer.writerow(('Title', 'Subtitle', 'Description', 'Images', 'Built With'))
+        # writer.writerow(('Title', 'Subtitle', 'Description', 'Images', 'Built With'))
+        writer.writerow([URLlst[index]])
         for row in fieldsList:
             writer.writerow((row[0], row[1], row[2], row[3], row[4]))
     finally:
