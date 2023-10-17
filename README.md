@@ -5,6 +5,7 @@ Added:
 - Description summarization
 - Better formatting
 - Multiple URLs support
+- Ability to specify number of submissions from each page of a hackathon
 
 TODO:
 - Export to document rather than csv
