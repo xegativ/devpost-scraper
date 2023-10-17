@@ -8,7 +8,6 @@ Added:
 - Ability to specify number of submissions from each page of a hackathon
 
 TODO:
-- Export to document rather than csv
 - Creating web application to display submissions
 
 Run with `py .\devpost.py`
