@@ -9,3 +9,5 @@ Added:
 
 TODO:
 - Export to document rather than csv
+
+Run with `py .\devpost.py`
