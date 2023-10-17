@@ -6,7 +6,12 @@ import summarize
 
 # BEAUTIFULSOUP 
 
-filename = input("Save to which file (or create new): ")
+fileSaveChoice = input("Save to file? (Y/N): ")
+if fileSaveChoice == "Y":
+    filesave = True
+    filename = input("Save to which file (or create new): ")
+else:
+    filesave = False
 
 # Hack the North
 HTN = ['http://hackthenorth2018.devpost.com', 'http://hackthenorth2019.devpost.com', 'http://hackthenorth2020.devpost.com', 'http://hackthenorth2021.devpost.com', 'http://hackthenorth2022.devpost.com', 'http://hackthenorth2023.devpost.com']
@@ -17,12 +22,16 @@ NWH = ['http://nwhacks2018.devpost.com', 'http://nwhacks2019.devpost.com', 'http
 # HackCamp
 HKC = ['http://hackcamp2020.devpost.com', 'http://hackcamp2021.devpost.com', 'http://hackcamp-2022.devpost.com']
 
-URLlst = [] + HTN + NWH + HKC
+CUSTOM = ['http://systemshacks-2023-roothacks.devpost.com']
+
+URLlst = [] + CUSTOM
 
 # subsUrl = baseUrl + "//project-gallery?page="
 
 n_subm = int(input("# of submissions per page?\t"))
 n_page = int(input("# of pages?\t"))
+
+data = {}
 
 def main():
     for j, baseUrl in enumerate(URLlst):
@@ -54,9 +63,12 @@ def main():
                 count = count + 1
             else:
                 break
+            
+            if filesave == True:
+                writeToCSV(fieldsList, j)
             print(len(fieldsList))
-            writeToCSV(fieldsList, j)
-
+            data[URLlst[j]] = fieldsList
+    print(data)
 
 def getTitle(subObj):
     title = subObj.find('h1', {'id':'app-title'})
@@ -118,7 +130,7 @@ def getBuiltWith(subObj):
 
 
 def writeToCSV(fieldsList, index):
-    csvFile = open(f'data/{filename}.csv', 'at', encoding="utf-8")
+    csvFile = open(f'../data/{filename}.csv', 'at', encoding="utf-8")
     try:
         writer = csv.writer(csvFile)
         # writer.writerow(('Title', 'Subtitle', 'Description', 'Images', 'Built With'))

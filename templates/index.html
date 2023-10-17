@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{{ url_for('static',filename='styles/index.css') }}"
+        />
+    </head>
+    <body>
+        <div>
+            <h1>Devpost Scraper</h1>
+            <form method="post" action="{{ url_for('add') }}">
+                <input
+                    type="text"
+                    name="URL"
+                    placeholder="Submission URL"
+                    value="{{ request.form['URL'] }}"
+                />
+
+                <button type="submit">Submit</button>
+            </form>
+
+            <ul>
+                {% for item in URL_lst %}
+                <li>
+                    <p>{{ item }}</p>
+                    <form method="post" action="{{ url_for('delete') }}">
+                        <input
+                            type="hidden"
+                            name="INDEX"
+                            value="{{ loop.index0 }}"
+                        />
+                        <button type="submit" name="DELETE">Delete</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </body>
+</html>
