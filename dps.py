@@ -7,17 +7,18 @@ import summarize
 
 class DPS():
       
-  def __init__(self, URLlst):
+  def __init__(self, URLlst, n_subm_i, n_page_i):
       self.data = {}
       URLlst = URLlst
-      n_subm = 1
-      n_page = 1
+      n_subm = n_subm_i
+      n_page = n_page_i
       
       for j, baseUrl in enumerate(URLlst):
-          try:
-            subsUrl = baseUrl + "//project-gallery?page="
-            count = 1
-            fieldsList = []
+          
+        subsUrl = baseUrl + "//project-gallery?page="
+        count = 1
+        fieldsList = []
+        try:
             while count <= n_page:
                 subsObj = BeautifulSoup(urlopen(subsUrl + str(count)), 'html.parser')
                 submissions = subsObj.findAll('a', {'class':'block-wrapper-link fade link-to-software'})
@@ -38,15 +39,19 @@ class DPS():
                             description = self.getDescription(subObj)
                             images = self.getImages(subObj)
                             builtWith = self.getBuiltWith(subObj)
+                            print('> Adding to fieldsList')
+                            print(f'\t> {title}')
                             fieldsList.append([title.get_text().strip(), subtitle.get_text().strip(), description, images, builtWith])
-                            
                     count = count + 1
                 else:
                     pass
-                
+
                 self.data[URLlst[j]] = fieldsList
-          except:
-              pass
+        except:
+            pass
+            
+            
+        
           
   def getData(self):
       return self.data

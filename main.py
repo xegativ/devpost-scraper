@@ -52,7 +52,22 @@ def add():
                 app.logger.info(f'> UNIQUE URL!')
                 app.logger.info(f'> SESSION AFTER ADD: {session["URL_lst"]}!')
     elif 'GETDATA' in request.form:
-        URL_get_data = DPS(session["URL_lst"]).getData()
+        
+        
+
+        if 'n_subm' in request.form:
+            n_subm = int(request.form['n_subm'])
+        else:
+            n_subm = 0
+        app.logger.info(f'> N_SUBM={n_subm}')
+
+        if 'n_page' in request.form:
+            n_page = int(request.form['n_page'])
+        else:
+            n_page = 0
+        app.logger.info(f'> N_SUBM={n_page}')
+
+        URL_get_data = DPS(session["URL_lst"], n_subm, n_page).getData()
         app.logger.info(f'> DATA: {URL_get_data}')
 
         # not appending

@@ -11,59 +11,97 @@
         />
     </head>
     <body>
-        <div>
-            <h1>Devpost Scraper</h1>
-            <form method="post" action="{{ url_for('add') }}">
-                <input
-                    type="text"
-                    name="URL"
-                    placeholder="Submission URL"
-                    value="{{ request.form['URL'] }}"
-                />
+        <div id="div-main">
+            <div id="div-input">
+                <div id="div-form">
+                    <h1>Devpost Scraper</h1>
+                    <form method="post" action="{{ url_for('add') }}">
+                        <div class="input-flex">
+                            <input
+                                type="text"
+                                name="URL"
+                                placeholder="Submission URL"
+                                value="{{ request.form['URL'] }}"
+                            />
+                            <button type="submit" name="ADD">Add</button>
+                        </div>
+                        <div class="input-flex">
+                            <input
+                                type="number"
+                                class="input-number"
+                                placeholder="# Submissions per page"
+                                name="n_subm"
+                            />
+                            <input
+                                type="number"
+                                class="input-number"
+                                placeholder="# Pages per URL"
+                                name="n_page"
+                            />
 
-                <button type="submit" name="ADD">Add</button>
-                <button type="submit" name="GETDATA">Get data</button>
-            </form>
-
-            <ul>
-                {% for item in URL_lst %}
-                <li>
-                    <p>{{ item }}</p>
-                    <form method="post" action="{{ url_for('delete') }}">
-                        <input
-                            type="hidden"
-                            name="INDEX"
-                            value="{{ loop.index0 }}"
-                        />
-                        <button type="submit" name="DELETE">Delete</button>
+                            <button type="submit" name="GETDATA">
+                                Get data
+                            </button>
+                        </div>
                     </form>
-                </li>
-                {% endfor %}
-            </ul>
-
-            <ul>
-                {% for url, values in URL_data.items() %}
-                <li>
-                    <p>URL: {{ url }}</p>
-                    <p>Title: {{ values[0][0] }}</p>
-                    <p>Description: {{ values[0][1] }}</p>
-                    <!-- Add more fields as needed -->
-                    <!-- For images and builtWith, you can use nested loops -->
-                    <!-- <p>Images:</p>
+                </div>
+                <div id="div-stored">
+                    <ul>
+                        {% for item in URL_lst %}
+                        <li>
+                            <p>{{ item }}</p>
+                            <form
+                                method="post"
+                                action="{{ url_for('delete') }}"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="INDEX"
+                                    value="{{ loop.index0 }}"
+                                />
+                                <button type="submit" name="DELETE">
+                                    Delete
+                                </button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div id="div-output">
+                <ul>
+                    {% for url, values in URL_data.items() %} {% for submission
+                    in values %}
+                    <li>
+                        <!-- <p>URL: {{ url }}</p> -->
+                        <div class="title-wrap">
+                            <p>{{ submission[0] }}:</p>
+                        </div>
+                        <div class="subtitle-wrap">
+                            <p>{{ submission[1] }}</p>
+                        </div>
+                        <div class="description-wrap">
+                            <p>{{ submission[2] }}</p>
+                        </div>
+                        <!-- Add more fields as needed -->
+                        <!-- For images and builtWith, you can use nested loops -->
+                        <!-- <p>Images:</p>
                     <ul>
                         {% for image in values[0][3] %}
                         <li><img src="{{ image }}" alt="Image" /></li>
                         {% endfor %}
                     </ul> -->
-                    <p>Built With:</p>
-                    <ul>
-                        {% for tool in values[0][4] %}
-                        <li>{{ tool }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endfor %}
-            </ul>
+                        <div class="tag-wrap">
+                            {% for tool in submission[4] %}
+                            <div class="tag-div">
+                                <p>{{ tool }}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    {% endfor %} {% endfor %}
+                </ul>
+            </div>
         </div>
     </body>
 </html>
