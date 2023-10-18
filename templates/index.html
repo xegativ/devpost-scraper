@@ -21,7 +21,8 @@
                     value="{{ request.form['URL'] }}"
                 />
 
-                <button type="submit">Submit</button>
+                <button type="submit" name="ADD">Add</button>
+                <button type="submit" name="GETDATA">Get data</button>
             </form>
 
             <ul>
@@ -36,6 +37,30 @@
                         />
                         <button type="submit" name="DELETE">Delete</button>
                     </form>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <ul>
+                {% for url, values in URL_data.items() %}
+                <li>
+                    <p>URL: {{ url }}</p>
+                    <p>Title: {{ values[0][0] }}</p>
+                    <p>Description: {{ values[0][1] }}</p>
+                    <!-- Add more fields as needed -->
+                    <!-- For images and builtWith, you can use nested loops -->
+                    <!-- <p>Images:</p>
+                    <ul>
+                        {% for image in values[0][3] %}
+                        <li><img src="{{ image }}" alt="Image" /></li>
+                        {% endfor %}
+                    </ul> -->
+                    <p>Built With:</p>
+                    <ul>
+                        {% for tool in values[0][4] %}
+                        <li>{{ tool }}</li>
+                        {% endfor %}
+                    </ul>
                 </li>
                 {% endfor %}
             </ul>
