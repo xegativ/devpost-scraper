@@ -8,6 +8,6 @@ Added:
 - Ability to specify number of submissions from each page of a hackathon
 
 TODO:
-- Creating web application to display submissions
+- Styling
 
 Run with `py .\devpost.py`
