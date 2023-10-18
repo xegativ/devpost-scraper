@@ -53,11 +53,10 @@ def add():
                 app.logger.info(f'> SESSION AFTER ADD: {session["URL_lst"]}!')
     elif 'GETDATA' in request.form:
         
-        
-
         if 'n_subm' in request.form:
             n_subm = int(request.form['n_subm'])
         else:
+
             n_subm = 0
         app.logger.info(f'> N_SUBM={n_subm}')
 
@@ -67,7 +66,12 @@ def add():
             n_page = 0
         app.logger.info(f'> N_SUBM={n_page}')
 
-        URL_get_data = DPS(session["URL_lst"], n_subm, n_page).getData()
+        if 'DontCheckWinner' in request.form:
+            DontCheckWinner = not request.form['DontCheckWinner']
+        else:
+            DontCheckWinner = True
+
+        URL_get_data = DPS(session["URL_lst"], n_subm, n_page, DontCheckWinner).getData()
         app.logger.info(f'> DATA: {URL_get_data}')
 
         # not appending
