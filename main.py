@@ -25,8 +25,10 @@ def index():
 
     if 'URL_lst' not in session:
         session['URL_lst'] = []
+        session.modified = True
     if 'URL_data' not in session:
         session['URL_data'] = []
+        session.modified = True
 
     app.logger.info(f'> SESSION AFTER CHECK: {session["URL_lst"]}!')
 

@@ -12,54 +12,81 @@
     </head>
     <body>
         <div id="div-main">
-            <div id="div-input">
-                <div id="div-form">
-                    <h1>Devpost Scraper</h1>
+            <h1>Devpost Scraper</h1>
+
+            <div id="div-form">
+                <div class="form-bg">
                     <form method="post" action="{{ url_for('add') }}">
+                        <div id="warning">
+                            Maximum session cookie: 4093 bytes <br />If data not
+                            returned, maximum session storage was exceeded
+                            <br />
+                            Suggestion: increment by 1 or 2 submissions up to
+                            desired # submissions
+                        </div>
                         <div class="input-flex">
                             <input
                                 type="text"
                                 name="URL"
                                 placeholder="Submission URL"
                                 value="{{ request.form['URL'] }}"
+                                class="string-input"
                             />
-                            <button type="submit" name="ADD">Add</button>
+                            <button
+                                type="submit"
+                                name="ADD"
+                                class="submit-button"
+                            >
+                                Add
+                            </button>
                         </div>
                         <div class="input-flex">
                             <input
                                 type="number"
-                                class="input-number"
-                                placeholder="# Submissions per page"
+                                class="input-subm numeric-input"
+                                placeholder="# Submissions"
                                 name="n_subm"
                             />
                             <input
                                 type="number"
-                                class="input-number"
+                                class="input-page numeric-input"
                                 placeholder="# Pages per URL"
                                 name="n_page"
                             />
-
+                            <label
+                                for="DontCheckWinner"
+                                id="DontCheckWinner-label"
+                                >Only Winners</label
+                            >
                             <input
                                 type="checkbox"
                                 id="DontCheckWinner"
                                 name="DontCheckWinner"
                             />
-                            <label for="DontCheckWinner">Only Winners</label>
 
-                            <button type="submit" name="GETDATA">
+                            <button
+                                type="submit"
+                                name="GETDATA"
+                                class="submit-button"
+                            >
                                 Get data
                             </button>
                         </div>
                     </form>
                 </div>
-                <div id="div-stored">
+            </div>
+
+            <div id="div-stored">
+                <div class="stored-bg">
+                    <!-- <div style="color: white">Stored</div> -->
                     <ul>
                         {% for item in URL_lst %}
-                        <li>
+                        <li class="stored-li">
                             <p>{{ item }}</p>
                             <form
                                 method="post"
                                 action="{{ url_for('delete') }}"
+                                class="stored-form"
                             >
                                 <input
                                     type="hidden"
@@ -75,15 +102,16 @@
                     </ul>
                 </div>
             </div>
+
             <div id="div-output">
                 {% if URL_data %}
                 <ul>
                     {% for url, values in URL_data.items() %} {% for submission
                     in values %}
-                    <li>
+                    <li class="output-li">
                         <!-- <p>URL: {{ url }}</p> -->
                         <div class="title-wrap">
-                            <p>{{ submission[0] }}:</p>
+                            <p>{{ submission[0] }}</p>
                         </div>
                         <div class="subtitle-wrap">
                             <p>{{ submission[1] }}</p>

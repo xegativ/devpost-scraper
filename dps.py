@@ -50,7 +50,7 @@ class DPS():
                             print("FINISHED")
                         count = count + 1
                     else:
-                        pass
+                        count = count + 1
 
                     self.data[URLlst[j]] = fieldsList
             except:

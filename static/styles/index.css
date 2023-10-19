@@ -1,43 +1,238 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
+@font-face {
+    font-family: "GE";
+    src: url("../fonts/Geliat-ExtraLight.otf");
+}
+
 * {
     margin: 0;
     padding: 0;
 
-    font-family: "Inter", sans-serif;
+    font-family: "GE";
     /* font-family: 'Space Grotesk', sans-serif; */
 }
 
+body {
+    background-color: black;
+}
+
+h1 {
+    color: white;
+    font-size: 100px;
+}
+
+input {
+    border-style: solid;
+    border: none;
+    border-width: 0px;
+    border-radius: 10px;
+
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding: 10px;
+
+    color: rgb(255, 255, 255);
+    font-family: "Space Grotesk", sans-serif;
+
+    background-color: rgb(71, 151, 255);
+}
+
+#warning {
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.8em;
+
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.string-input {
+    width: 300px;
+}
+
+.numeric-input {
+    width: 142px;
+}
+
+label {
+    color: white;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: white;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: white;
+    opacity: 1;
+}
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: white;
+    opacity: 1;
+}
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+}
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: white;
+}
+
+::placeholder {
+    /* Most modern browsers support this now. */
+    color: white;
+}
+
+.form-bg {
+    margin-top: 50px;
+    padding: 15px;
+
+    background-color: rgb(0, 102, 255);
+
+    border-radius: 25px;
+}
+
+.stored-bg {
+    /* margin-top: 50px; */
+    padding: 15px;
+
+    background-color: rgb(162, 0, 255);
+
+    border-radius: 25px;
+}
+
+#div-stored {
+    margin-bottom: 40px;
+    display: flex;
+}
+
+button {
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+#DontCheckWinner {
+    width: 30px;
+    margin-right: 10px;
+}
+
+#DontCheckWinner-label {
+    margin-top: 14px;
+
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 13px;
+}
+
 #div-main {
-    padding: 40px;
+    padding: 80px;
+}
+
+#div-form {
+    margin-bottom: 40px;
+    display: flex;
 }
 
 .input-flex {
     display: flex;
 }
 
-.input-number {
+.submit-button {
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 10px;
+    border-color: white;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background-color: rgb(48, 131, 255);
 }
 
-#div-input {
-    padding: 40px;
-
+.stored-li {
     display: flex;
-    background-color: rgb(180, 190, 200);
+    justify-content: space-between;
+
+    margin: 10px;
 }
 
-#div-output {
-    padding: 40px;
+.stored-li p {
+    color: white;
+
+    font-size: 0.8em;
+    font-family: "Space Grotesk", sans-serif;
+
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.stored-li button {
+    border-style: solid;
+    border-width: 0px;
+    border-radius: 10px;
+    border-color: white;
+
+    padding: 10px;
+
+    font-size: 0.8em;
+    color: white;
+    font-family: "Space Grotesk", sans-serif;
+
+    background-color: rgb(191, 82, 255);
+}
+
+.output-li {
+    margin-bottom: 40px;
+    border-radius: 25px;
+    padding: 25px;
+    background-color: rgb(255, 255, 255);
+}
+
+.output-li div p {
+    font-size: 0.8em;
+
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.title-wrap {
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.subtitle-wrap {
+    margin-bottom: 10px;
+}
+
+.description-wrap {
+    margin-bottom: 15px;
+}
+
+.tag-wrap {
+    margin-top: 10px;
+    display: flex;
 }
 
 .tag-div p {
-    margin: 5px;
-    background-color: grey;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    padding: 5px;
+
+    border-radius: 10px;
+
+    background-color: rgb(180, 180, 180);
     color: white;
     font-family: "Space Grotesk", sans-serif;
     font-size: 0.8em;
-}
-
-li {
-    display: flex;
 }
