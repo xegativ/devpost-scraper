@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session
+import os
 
 import logging
 from dps import DPS
@@ -9,8 +10,8 @@ logging.basicConfig(level=logging.DEBUG)
 # used to tell the instance where it is located
 app = Flask(__name__)
 
-# USE SO I CAN STORE A TEMP DB?
-app.secret_key = "your_secret_key"  # random string (generate?)
+
+app.secret_key = os.urandom(24)
 
 
 # decorator
