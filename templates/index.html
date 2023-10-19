@@ -20,9 +20,11 @@
                         <div id="warning">
                             Maximum session cookie: 4093 bytes <br />If data not
                             returned, maximum session storage was exceeded
+
                             <br />
-                            Suggestion: increment by 1 or 2 submissions up to
-                            desired # submissions
+                            <br />
+                            Use http rather than https (eg.
+                            http://hackathon.devpost.com/)
                         </div>
                         <div class="input-flex">
                             <input
@@ -69,7 +71,7 @@
                                 name="GETDATA"
                                 class="submit-button"
                             >
-                                Get data
+                                Update
                             </button>
                         </div>
                     </form>
@@ -128,7 +130,7 @@
                         {% endfor %}
                     </ul> -->
                         <div class="tag-wrap">
-                            {% for tool in submission[4] %}
+                            {% for tool in submission[3] %}
                             <div class="tag-div">
                                 <p>{{ tool }}</p>
                             </div>
