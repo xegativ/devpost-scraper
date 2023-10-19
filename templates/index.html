@@ -76,6 +76,7 @@
                 </div>
             </div>
             <div id="div-output">
+                {% if URL_data %}
                 <ul>
                     {% for url, values in URL_data.items() %} {% for submission
                     in values %}
@@ -108,6 +109,7 @@
                     </li>
                     {% endfor %} {% endfor %}
                 </ul>
+                {% endif %}
             </div>
         </div>
     </body>

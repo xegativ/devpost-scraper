@@ -21,7 +21,7 @@ def index():
     # init
     # Initialize URL_lst in the session
 
-    app.logger.info(f'> SESSION BEFORE CHECK: {session["URL_lst"]}!')
+    # app.logger.info(f'> SESSION BEFORE CHECK: {session["URL_lst"]}!')
 
     if 'URL_lst' not in session:
         session['URL_lst'] = []
@@ -54,14 +54,19 @@ def add():
     elif 'GETDATA' in request.form:
         
         if 'n_subm' in request.form:
-            n_subm = int(request.form['n_subm'])
+            try:
+                n_subm = int(request.form['n_subm'])
+            except:
+                n_subm = 0
         else:
-
             n_subm = 0
         app.logger.info(f'> N_SUBM={n_subm}')
 
         if 'n_page' in request.form:
-            n_page = int(request.form['n_page'])
+            try:
+                n_page = int(request.form['n_page'])
+            except:
+                n_page = 0
         else:
             n_page = 0
         app.logger.info(f'> N_SUBM={n_page}')
