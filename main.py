@@ -78,9 +78,8 @@ def create_app():
             else:
                 DontCheckWinner = True
 
-            URL_get_data = DPS(
-                session["URL_lst"], n_subm, n_page, DontCheckWinner
-            ).getData()
+            URL_DATA_OBJ = DPS(session["URL_lst"], n_subm, n_page, DontCheckWinner)
+            URL_get_data = URL_DATA_OBJ.getData()
             app.logger.info(f"> DATA: {URL_get_data}")
 
             # not appending
