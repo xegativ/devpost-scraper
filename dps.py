@@ -8,16 +8,18 @@ import summarize
 class DPS:
     def __init__(self, URLlst, n_subm_i, n_page_i, dontCheckWinner=True):
         self.data = {}
-        URLlst = URLlst
-        n_subm = n_subm_i
-        n_page = n_page_i
+        self.URLlst = URLlst
+        self.n_subm = n_subm_i
+        self.n_page = n_page_i
+        self.dontCheckWinner = dontCheckWinner
 
-        for j, baseUrl in enumerate(URLlst):
+    def getData(self):
+        for j, baseUrl in enumerate(self.URLlst):
             subsUrl = baseUrl + "//project-gallery?page="
             count = 1
             fieldsList = []
             try:
-                while count <= n_page:
+                while count <= self.n_page:
                     subsObj = BeautifulSoup(
                         urlopen(subsUrl + str(count)), "html.parser"
                     )
@@ -26,7 +28,7 @@ class DPS:
                     )
                     if len(submissions) != 0:
                         for i, submission in enumerate(submissions):
-                            if i >= n_subm:
+                            if i >= self.n_subm:
                                 break
 
                             print("> Checking submission")
@@ -35,12 +37,12 @@ class DPS:
                             subObj = BeautifulSoup(urlopen(subUrl), "html.parser")
 
                             # if we are not checking winner, only dependent on isWinner check
-                            if self.isWinner(subObj) or dontCheckWinner:
+                            if self.isWinner(subObj) or self.dontCheckWinner:
                                 print("> Is a winner OR not checking for winners")
                                 title = self.getTitle(subObj)
                                 subtitle = self.getSubtitle(subObj, title)
                                 description = self.getDescription(subObj)
-                                images = self.getImages(subObj)
+
                                 builtWith = self.getBuiltWith(subObj)
                                 print("> Adding to fieldsList")
                                 print(f"\t> {title}")
@@ -60,11 +62,9 @@ class DPS:
                     else:
                         count = count + 1
 
-                    self.data[URLlst[j]] = fieldsList
+                    self.data[self.URLlst[j]] = fieldsList
             except:
                 pass
-
-    def getData(self):
         return self.data
 
     def getTitle(self, subObj):
