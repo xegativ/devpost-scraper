@@ -5,6 +5,8 @@ Run app with `py .\devpost.py`
 Unfortunately, I am lazy, and thus it just uses Flask session to store temporary submission data. Max 4093 bytes for web application.
 Run web application with `py .\run.py`
 
+![devposttitle](https://github.com/xegativ/devpost-scraper/assets/52055203/ec05006b-d553-419f-870d-21dae0933191)
+
 ![chigen](https://github.com/xegativ/devpost-scraper/assets/52055203/6238cc5d-8bf0-458c-a280-38759b42bf37)
 
 
